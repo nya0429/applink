@@ -18,6 +18,9 @@
             } else if (navigator.userAgent.match(/iPhone|iPad|iPod/)) {
                 window.location = UNIVERSAL_LINK;
             } else {
+                let text = document.createElement("div");
+                text.textContent = "スマートフォンでご体験ください。"
+                document.body.appendChild(text);
                 let img = document.createElement("img");
                 img.src = "https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=" + encodeURIComponent(QR);
                 document.body.appendChild(img);
