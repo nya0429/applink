@@ -1,0 +1,48 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <title>link test</title>
+    <script>
+
+        //var MARKET = "market://details?id=com.example";
+        const UNIVERSAL_LINK = "https://apps.apple.com/jp/app/id544007664"; //iOS 起動して表示したいアプリのページ
+        const MARKET = "market://details?id=com.google.android.youtube";
+        const URL = "example-app://~~"; //Android 起動して表示したいアプリのページ
+        const QR = "http://example.com/qr";
+
+        function onLoad() {
+            if (navigator.userAgent.match(/Android/)) {
+                if (navigator.userAgent.match(/Chrome/)) {
+                    setTimeout(function () {
+                        if (!document.webkitHidden)
+                            window.location.href = MARKET;
+                    }, 1000);
+                    window.location.href = URL;
+                } else {
+                    var iframe = document.createElement("iframe");
+                    iframe.style.border = "none";
+                    iframe.style.width = "1px";
+                    iframe.style.height = "1px";
+                    var t = setTimeout(function () {
+                        window.location = MARKET;
+                    }, 1000);
+                    iframe.onload = function () {
+                        clearTimeout(t)
+                    };
+                    iframe.src = URL;
+                    document.body.appendChild(iframe);
+                }
+            } else if (navigator.userAgent.match(/iPhone|iPad|iPod/)) {
+                window.location = UNIVERSAL_LINK;
+            } else {
+                var img = document.createElement("img");
+                img.src = "https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=" + encodeURIComponent(QR);
+                document.body.appendChild(img);
+            }
+        }
+    </script>
+</head>
+<body onload="onLoad()">
+</body>
+</html>
