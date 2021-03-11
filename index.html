@@ -8,33 +8,34 @@
         //var MARKET = "market://details?id=com.example";
         const UNIVERSAL_LINK = "https://apps.apple.com/jp/app/id544007664"; //iOS 起動して表示したいアプリのページ
         const MARKET = "market://details?id=com.google.android.youtube";
-        const URL = "example-app://~~"; //Android 起動して表示したいアプリのページ
+        const URL = "youtube:"; //Android 起動して表示したいアプリのページ
         const QR = "https://nya0429.github.io/applink/";
 
+        //https://kyamashiro.hateblo.jp/entry/2020/10/24/070323
         function onLoad() {
             if (navigator.userAgent.match(/Android/)) {
                 window.location = MARKET;
 
-                // if (navigator.userAgent.match(/Chrome/)) {
-                //     setTimeout(function () {
-                //         if (!document.webkitHidden)
-                //             window.location.href = MARKET;
-                //     }, 1000);
-                //     window.location.href = URL;
-                // } else {
-                //     // var iframe = document.createElement("iframe");
-                //     // iframe.style.border = "none";
-                //     // iframe.style.width = "1px";
-                //     // iframe.style.height = "1px";
-                //     // var t = setTimeout(function () {
-                //     //     window.location = MARKET;
-                //     // }, 1000);
-                //     // iframe.onload = function () {
-                //     //     clearTimeout(t)
-                //     // };
-                //     // iframe.src = URL;
-                //     // document.body.appendChild(iframe);
-                // }
+                if (navigator.userAgent.match(/Chrome/)) {
+                    setTimeout(function () {
+                        if (!document.webkitHidden)
+                            window.location.href = MARKET;
+                    }, 1000);
+                    window.location.href = URL;
+                } else {
+                    var iframe = document.createElement("iframe");
+                    iframe.style.border = "none";
+                    iframe.style.width = "1px";
+                    iframe.style.height = "1px";
+                    var t = setTimeout(function () {
+                        window.location = MARKET;
+                    }, 1000);
+                    iframe.onload = function () {
+                        clearTimeout(t)
+                    };
+                    iframe.src = URL;
+                    document.body.appendChild(iframe);
+                }
             } else if (navigator.userAgent.match(/iPhone|iPad|iPod/)) {
                 window.location = UNIVERSAL_LINK;
             } else {
